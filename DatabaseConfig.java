@@ -8,10 +8,22 @@ public class DatabaseConfig {
 
     static {
         try {
+            // DB_URL and DB_USER fall back to local defaults; DB_PASSWORD is required.
+            String url = System.getenv().getOrDefault(
+                    "DB_URL",
+                    "jdbc:mysql://localhost:3307/event_management?useSSL=false&allowPublicKeyRetrieval=true");
+            String user = System.getenv().getOrDefault("DB_USER", "root");
+            String password = System.getenv("DB_PASSWORD");
+
+            if (password == null) {
+                throw new IllegalStateException(
+                        "DB_PASSWORD environment variable is not set. See the Configuration section in README.md.");
+            }
+
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl("jdbc:mysql://localhost:3307/event_management?useSSL=false&allowPublicKeyRetrieval=true");
-            config.setUsername("root");
-            config.setPassword("mysql");
+            config.setJdbcUrl(url);
+            config.setUsername(user);
+            config.setPassword(password);
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
             config.setMaximumPoolSize(10);
