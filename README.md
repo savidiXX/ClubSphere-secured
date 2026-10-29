@@ -1,3 +1,35 @@
+## About this fork
+
+This is my fork of [ClubSphere](https://github.com/tharunsasanka/ClubSphere),
+a group project built for PUSL2024 Software Engineering 2 at the
+University of Plymouth.
+
+**My contributions to the original project:** the registration, login and forgot-password servlets, the database connection pool configuration and the User model.
+
+**Improvements added in this fork:**
+- Moved database credentials out of the source code into environment variables
+
+## Configuration
+
+The application reads its database settings from environment variables,
+so no passwords are stored in the code.
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `DB_PASSWORD` | Yes | none | Password for your MySQL user |
+| `DB_USER` | No | `root` | MySQL username |
+| `DB_URL` | No | `jdbc:mysql://localhost:3307/event_management?useSSL=false&allowPublicKeyRetrieval=true` | JDBC connection URL |
+
+**Setting them on Windows:** open "Edit the system environment variables",
+click "Environment Variables", and add a new user variable for each setting
+you need. Restart your IDE and application server afterwards so they pick up
+the new values.
+
+If `DB_PASSWORD` is missing, the application stops at startup with a message
+saying so.
+
+---
+
 <div align="center">
 
 # ClubSphere
